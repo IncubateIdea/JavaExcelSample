@@ -49,6 +49,7 @@ public class App {
             if (data.getColumnG().equals(data.getColumnM())) {
                 System.out.println("第" + index + "行相同, ID分别为: " + data.getColumnF() + ", " + data.getColumnM());
             }
+            ++index;
         }
     }
 
