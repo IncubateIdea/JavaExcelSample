@@ -5,40 +5,72 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.util.CellAddress;
 
 /**
  * Hello world!
  */
 public class App {
     public static void main(String[] args) throws Exception {
-        FileInputStream file = new FileInputStream(new File(System.getProperty("user.dir") + "\\src\\main\\resources\\sample.xlsx"));
-        Workbook workbook = new XSSFWorkbook(file);
+        FileInputStream file = new FileInputStream(new File("E:\\扬子石化总部端2018年盘查项目 - Copy.xls"));
+        Workbook workbook = new HSSFWorkbook(file);
         Sheet sheet = workbook.getSheetAt(0);
 
         //读取每一行的数据, 存到集合里
         List<ExcelData> datas = new ArrayList<ExcelData>();
+        int index = 0;
         for (Row row : sheet) {
+            if (index++ == 0) {
+                //第一行是列头, 不读取
+                continue;
+            }
             //遍历行
             ExcelData data = new ExcelData();
-            data.setColumnA(row.getCell(0).getStringCellValue()); //第一个单元格的值
-            data.setColumnB(row.getCell(1).getStringCellValue()); //第二个单元格的值
+
+
+            data.setColumnF(getCellValue(row.getCell(5))); //NODE_ID
+            data.setColumnG(getCellValue(row.getCell(6))); //NODE_NAME
+            data.setColumnH(getCellValue(row.getCell(7))); //NODE_ID
+            data.setColumnM(getCellValue(row.getCell(12))); //NODE_NAME
+
             datas.add(data);
+
         }
+
 
         System.out.println("总共读取了" + datas.size() + "行数据");
         //比较数据是否一致
-        int index = 1;
+        index = 2;
         for (ExcelData data : datas) {
-            if (data.getColumnA().equals(data.getColumnB())) {
-                System.out.println("第" + index + "行的值相等");
-            } else {
-                System.out.println("第" + index + "行的值不相等: A: " + data.getColumnA() + ", B: " + data.getColumnB());
+            if(data.getColumnG().equals(data.getColumnM())){
+                System.out.println("第" + index + "行相同, ID分别为: " + data.getColumnF() + ", " + data.getColumnM());
             }
-            ++index;
         }
+    }
+
+    static String getCellValue(Cell cell) {
+        if(cell == null){
+            return "";
+        }
+        Object cellValue ;
+        switch (cell.getCellType()) {
+            case NUMERIC:
+                cellValue = cell.getNumericCellValue();
+                break;
+            case BOOLEAN:
+                cellValue = cell.getBooleanCellValue();
+                break;
+            case STRING:
+                cellValue = cell.getStringCellValue();
+                break;
+            default:
+                cellValue = "";
+        }
+        return String.valueOf(cellValue);
     }
 }

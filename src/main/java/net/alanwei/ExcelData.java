@@ -1,25 +1,40 @@
 package net.alanwei;
 
 public class ExcelData {
-    private String columnA;
+    private String columnF;
+    private String columnG;
+    private String columnH;
+    private String columnM;
 
-    public String getColumnA() {
-        return this.columnA;
+    public String getColumnF() {
+        return columnF;
     }
 
-    public void setColumnA(String value) {
-        this.columnA = value;
+    public void setColumnF(String columnF) {
+        this.columnF = columnF;
     }
 
-
-
-    private String columnB;
-
-    public String getColumnB() {
-        return this.columnB;
+    public String getColumnG() {
+        return columnG;
     }
 
-    public void setColumnB(String value) {
-        this.columnB = value;
+    public void setColumnG(String columnG) {
+        this.columnG = columnG;
+    }
+
+    public String getColumnH() {
+        return columnH;
+    }
+
+    public void setColumnH(String columnH) {
+        this.columnH = columnH;
+    }
+
+    public String getColumnM() {
+        return columnM;
+    }
+
+    public void setColumnM(String columnM) {
+        this.columnM = columnM;
     }
 }
