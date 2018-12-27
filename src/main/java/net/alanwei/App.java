@@ -10,7 +10,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellAddress;
 
 /**
  * Hello world!
@@ -47,17 +46,17 @@ public class App {
         //比较数据是否一致
         index = 2;
         for (ExcelData data : datas) {
-            if(data.getColumnG().equals(data.getColumnM())){
+            if (data.getColumnG().equals(data.getColumnM())) {
                 System.out.println("第" + index + "行相同, ID分别为: " + data.getColumnF() + ", " + data.getColumnM());
             }
         }
     }
 
     static String getCellValue(Cell cell) {
-        if(cell == null){
+        if (cell == null) {
             return "";
         }
-        Object cellValue ;
+        Object cellValue;
         switch (cell.getCellType()) {
             case NUMERIC:
                 cellValue = cell.getNumericCellValue();
